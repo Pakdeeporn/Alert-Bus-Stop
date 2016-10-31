@@ -3,6 +3,7 @@ package rsu.siriwimon.pakdeeporn.alertbusstop;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -28,6 +29,15 @@ public class MainActivity extends AppCompatActivity {
                 mySoundEffect(R.raw.add_bus);
 
             } //Onclick
+        });
+
+        // Long Click Button Controller
+        button.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Log.d("31octV1","You Click Long");
+                return true;
+            } // onLongClick
         });
 
 
