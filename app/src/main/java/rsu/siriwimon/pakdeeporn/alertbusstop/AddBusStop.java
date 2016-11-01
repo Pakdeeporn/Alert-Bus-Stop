@@ -30,7 +30,8 @@ public class AddBusStop extends FragmentActivity implements OnMapReadyCallback {
     private ImageView recordImageView, playImageView;
     private boolean aBoolean = true;    // Non Record Sound
     private Uri uri;
-
+    private double latStartADouble = 13.964535;
+    private double lngStartADouble = 100.585110;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,10 +146,9 @@ public class AddBusStop extends FragmentActivity implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+       //  Create Map
+        LatLng centerLatLng = new LatLng(latStartADouble,lngStartADouble);
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(centerLatLng,16)); //ตำแหน่งซูมที่ 16
     }   // onMapReady
 
 }   // Main Class
