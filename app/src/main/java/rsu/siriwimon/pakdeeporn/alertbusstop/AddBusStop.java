@@ -1,6 +1,8 @@
 package rsu.siriwimon.pakdeeporn.alertbusstop;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -26,6 +28,8 @@ public class AddBusStop extends FragmentActivity implements OnMapReadyCallback {
     private Button button;
     private String nameBusStopString;
     private ImageView recordImageView,playImageView;
+    private boolean aBoolean = true; // Non Record Sound
+    private Uri uri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +77,26 @@ public class AddBusStop extends FragmentActivity implements OnMapReadyCallback {
         });
 
 
+        //Play Controller
+        playImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // Check Record
+                if (aBoolean) {
+                    // Non Record
+                    MyAlert myAlert = new MyAlert(AddBusStop.this, R.drawable.nobita48,
+                            getResources().getString(R.string.title_record_sound),
+                            getResources().getString(R.string.message_record_sound));
+                    myAlert.myDialog();
+                } else {
+                    // Record OK
+                    MediaPlayer mediaPlayer = MediaPlayer.create(AddBusStop.this,uri); //
+                    mediaPlayer.start();
+                }
+            }
+        });
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -90,8 +114,8 @@ public class AddBusStop extends FragmentActivity implements OnMapReadyCallback {
         if ((requestCode == 0)&&(resultCode == RESULT_OK)){
 
             Log.d("1novV1","Result OK"); //การทำ debuging
-
-
+            aBoolean = false; // Record Sound OK
+            uri = data.getData();
         } //if
 
 
