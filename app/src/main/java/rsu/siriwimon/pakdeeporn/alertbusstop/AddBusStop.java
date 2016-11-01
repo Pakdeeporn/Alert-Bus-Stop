@@ -1,10 +1,14 @@
 package rsu.siriwimon.pakdeeporn.alertbusstop;
 
+import android.content.Intent;
+import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -21,6 +25,7 @@ public class AddBusStop extends FragmentActivity implements OnMapReadyCallback {
     private EditText editText;
     private Button button;
     private String nameBusStopString;
+    private ImageView recordImageView,playImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +34,20 @@ public class AddBusStop extends FragmentActivity implements OnMapReadyCallback {
         // Bind Widget
         editText = (EditText)findViewById(R.id.editText); //ผูกข้อมูล ediText กับ editText
         button = (Button) findViewById(R.id.button2); //ผูกข้อมูล button กับ button2
+        recordImageView = (ImageView) findViewById(R.id.imageView3); //ผูกข้อมูลในการบันทึก
+        playImageView = (ImageView) findViewById(R.id.imageView4); //แสดงเสียงที่บันทึก
+
+        // Record Controller
+
+        recordImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MediaStore.Audio.Media.RECORD_SOUND_ACTION); //สามารถเคลื่อนย้ายการทำงานแล้วสามารถทำงานได้
+                startActivityForResult(intent,0); //ใ่เลข 0 เป็น resource
+            } // OnClick เมื่อไหร่ก็ตามเมื่อมีการคลิกจะทำงานนอกปีกกา
+        });
+
+
 
 
         ///Button Controller เมื่อมีการคลิกที่ Button เมื่อเป็น editext ไม่สามารถทำการประมวลผลได้ ต้องเปลี่ยนเป้น String
@@ -61,6 +80,22 @@ public class AddBusStop extends FragmentActivity implements OnMapReadyCallback {
 
 
     } // Main method
+
+    @Override
+    protected void onActivityResult(int requestCode,
+                                    int resultCode,
+                                    Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if ((requestCode == 0)&&(resultCode == RESULT_OK)){
+
+            Log.d("1novV1","Result OK"); //การทำ debuging
+
+
+        } //if
+
+
+    } // onActivityResult
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
