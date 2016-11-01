@@ -32,6 +32,7 @@ public class AddBusStop extends FragmentActivity implements OnMapReadyCallback {
     private Uri uri;
     private double latStartADouble = 13.964535;
     private double lngStartADouble = 100.585110;
+    private double latBusStopADouble,lngBusStopADouble;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,6 +150,24 @@ public class AddBusStop extends FragmentActivity implements OnMapReadyCallback {
        //  Create Map
         LatLng centerLatLng = new LatLng(latStartADouble,lngStartADouble);
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(centerLatLng,16)); //ตำแหน่งซูมที่ 16
+
+        //Get Event from Click Maps
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+
+                mMap.clear(); //เครียร์ maps
+
+                mMap.addMarker(new MarkerOptions()
+                .position(latLng));
+
+
+
+            } // OnMapsClick
+        });
+
+
+
     }   // onMapReady
 
 }   // Main Class
