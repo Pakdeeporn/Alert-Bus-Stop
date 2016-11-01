@@ -13,11 +13,13 @@ public class MainActivity extends AppCompatActivity {
     //Explicit
     private ListView listView;
     private Button button;
-
+    private Mymanage mymanage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mymanage = new Mymanage(MainActivity.this);
 
         //Bind Widget การผูกตัวแปลให้ทำงานร่วมกัน
         listView = (ListView)findViewById(R.id.livBusstop);
